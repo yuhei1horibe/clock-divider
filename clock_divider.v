@@ -20,10 +20,10 @@
 
 // Clock divider
 module clock_divider(
-    input  src_clk,
+    input  clk_in,
     input  [32:0]clk_div,
     input  reset,
-    output clock_out
+    output clk_out
 );
 
     // 32 bit counter
@@ -32,7 +32,7 @@ module clock_divider(
     wire      trigger;
 
     // Update counter
-    always @ (posedge src_clk or negedge reset) begin
+    always @ (posedge clk_in or negedge reset) begin
         if(reset == 1'b0 || trigger == 1'b1) begin
             counter_reg <= 32'h00000000;
         end
@@ -53,7 +53,7 @@ module clock_divider(
             clk_out_reg <= ~clk_out_reg;
         end
     end
-    assign clock_out = clk_out_reg;
+    assign clk_out = clk_out_reg;
 
 endmodule
 
